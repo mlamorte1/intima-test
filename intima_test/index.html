@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>INTIMA Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #202021 0, #050509 45%, #000 100%);
+      color: #fef9c3;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .app {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .card {
+      background: rgba(5,5,9,0.9);
+      border-radius: 20px;
+      border: 1px solid rgba(234,179,8,0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+      padding: 28px 22px 24px;
+    }
+    .logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(250,204,21,0.5);
+    }
+    .title-main {
+      letter-spacing: 0.35em;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .title-sub {
+      letter-spacing: 0.35em;
+      font-size: 11px;
+      color: #facc15;
+      margin-bottom: 20px;
+    }
+    .tagline {
+      font-size: 15px;
+      color: #e5e7eb;
+      margin-bottom: 26px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 1px solid #eab308;
+      color: #fef9c3;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 15px;
+    }
+    .btn:hover {
+      background: #eab308;
+      color: #020617;
+      box-shadow: 0 12px 30px rgba(234,179,8,0.35);
+    }
+    .small {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 10px;
+    }
+
+    .question-text {
+      font-size: 17px;
+      margin-bottom: 24px;
+      color: #fefce8;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .btn-yes, .btn-no {
+      flex: 1;
+      padding: 10px 0;
+      border-radius: 999px;
+      border: 1px solid;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.18s ease;
+    }
+    .btn-yes {
+      border-color: #eab308;
+      color: #fef9c3;
+      background: transparent;
+    }
+    .btn-yes:hover {
+      background: #eab308;
+      color: #020617;
+      box-shadow: 0 10px 25px rgba(234,179,8,0.4);
+    }
+    .btn-no {
+      border-color: #6b7280;
+      color: #e5e7eb;
+      background: transparent;
+    }
+    .btn-no:hover {
+      background: #374151;
+      border-color: #9ca3af;
+    }
+    .progress-wrap {
+      margin-bottom: 18px;
+      text-align: left;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: #1f2937;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #eab308, #facc15, #eab308);
+      transition: width 0.25s ease;
+    }
+    .question-count {
+      margin-bottom: 4px;
+    }
+
+    .result-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+    .result-sub {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 22px;
+    }
+    .result-line {
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+    .result-explanation {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #d1d5db;
+      line-height: 1.4;
+    }
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .link {
+      font-size: 13px;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+    .link:hover {
+      color: #facc15;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- HOME / INTRO -->
+    <div id="screen-home" class="card">
+      <div
+        class="logo"
+        id="logo"
+        style="
+          background-image: url('intima-logo.png');
+        "
+      ></div>
+      <div class="title-main">INTIMA</div>
+      <div class="title-sub">TEST</div>
+      <div class="tagline">Unlock your suggestibility style.</div>
+      <button class="btn" id="start-btn">START</button>
+      <div class="small">
+        A short, private personality exploration.
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="screen-quiz" class="card" style="display:none;">
+      <div class="progress-wrap">
+        <div class="question-count" id="question-count"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      <div class="question-text" id="question-text"></div>
+      <div class="btn-row">
+        <button class="btn-yes" id="btn-yes">Yes</button>
+        <button class="btn-no" id="btn-no">No</button>
+      </div>
+      <div class="small" style="margin-top: 16px;">
+        Answer intuitively. There are no “right” or “wrong” responses.
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="screen-result" class="card" style="display:none;">
+      <div class="result-title">INTIMA PROFILE</div>
+      <div class="result-sub">Your suggestibility style summary</div>
+      <div class="result-line" id="result-physical"></div>
+      <div class="result-line" id="result-emotional"></div>
+      <div class="result-explanation" id="result-explanation"></div>
+      <div class="actions">
+        <button class="btn" id="share-btn">Share my result</button>
+        <div class="link" id="retake-link">Retake the test</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // 1) QUIZ QUESTIONS (shortened version – you can extend later)
+    const quiz1 = [
+      { id: 1, text: "Have you ever walked in your sleep during your adult life?", points: 10 },
+      { id: 2, text: "As a teenager, did you feel comfortable expressing your feelings to one or both of your parents?", points: 10 },
+      { id: 3, text: "Do you have a tendency to look directly into a person's eyes when discussing an interesting subject?", points: 5 },
+      { id: 4, text: "Do you feel that most people, when you first meet them, are uncritical of your appearance?", points: 5 },
+      { id: 5, text: "In a group situation with people you have just met, would you feel comfortable drawing attention to yourself by initiating a conversation?", points: 5 },
+    ];
+    const quiz2 = [
+      { id: 1, text: "Have you ever awakened in the middle of the night and felt that you could not move your body or talk?", points: 10 },
+      { id: 2, text: "As a child, did you feel that you were more affected by your parents' tone of voice than by what they actually said?", points: 10 },
+      { id: 3, text: "If someone you are associated with talks about a fear that you have experienced before, do you have a tendency to have an apprehensive or fearful feeling also?", points: 5 },
+      { id: 4, text: "After having an argument with someone, do you have a tendency to dwell on what you could or should have said?", points: 5 },
+      { id: 5, text: "Do you sometimes desire to be complimented for a job well done, but feel embarrassed or uncomfortable when complimented?", points: 5 },
+    ];
+
+    const allQuestions = [
+      ...quiz1.map(q => ({ ...q, set: 1 })),
+      ...quiz2.map(q => ({ ...q, set: 2 })),
+    ];
+
+    // 2) ELEMENTS
+    const screenHome = document.getElementById('screen-home');
+    const screenQuiz = document.getElementById('screen-quiz');
+    const screenResult = document.getElementById('screen-result');
+
+    const startBtn = document.getElementById('start-btn');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const progressFill = document.getElementById('progress-fill');
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+
+    const resultPhysical = document.getElementById('result-physical');
+    const resultEmotional = document.getElementById('result-emotional');
+    const resultExplanation = document.getElementById('result-explanation');
+    const shareBtn = document.getElementById('share-btn');
+    const retakeLink = document.getElementById('retake-link');
+
+    // 3) STATE
+    let currentIndex = 0;
+    let scoreQ1 = 0;
+    let scoreQ2 = 0;
+
+    function showScreen(screen) {
+      screenHome.style.display = (screen === 'home') ? 'block' : 'none';
+      screenQuiz.style.display = (screen === 'quiz') ? 'block' : 'none';
+      screenResult.style.display = (screen === 'result') ? 'block' : 'none';
+    }
+
+    function updateQuestion() {
+      const q = allQuestions[currentIndex];
+      questionText.textContent = q.text;
+      questionCount.textContent = `Question ${currentIndex + 1} of ${allQuestions.length}`;
+      const percent = ((currentIndex) / allQuestions.length) * 100;
+      progressFill.style.width = percent + '%';
+    }
+
+    function finishQuiz() {
+      const combined = scoreQ1 + scoreQ2;
+      const physicalPercent = combined > 0 ? Math.round((scoreQ1 / combined) * 100) : 0;
+      const emotionalPercent = 100 - physicalPercent;
+
+      resultPhysical.textContent = `🧠 Physical Suggestibility: ${physicalPercent}%`;
+      resultEmotional.textContent = `💖 Emotional Suggestibility: ${emotionalPercent}%`;
+
+      let explanation = "";
+      if (physicalPercent > 65) {
+        explanation = "You appear to lean toward physical suggestibility - you respond strongly to direct, external cues and may learn well by doing and experiencing.";
+      } else if (emotionalPercent > 65) {
+        explanation = "You appear to lean toward emotional suggestibility - you respond strongly to subtleties like tone, meaning, and the emotional atmosphere around you.";
+      } else {
+        explanation = "You seem to show a fairly balanced style, responding to both physical and emotional cues in your environment.";
+      }
+      resultExplanation.textContent = explanation;
+
+      // Save so we could, in theory, reuse locally
+      const resultObj = {
+        physicalPercent,
+        emotionalPercent,
+        created_at: new Date().toISOString(),
+      };
+      try {
+        localStorage.setItem('intima_result', JSON.stringify(resultObj));
+      } catch (e) {
+        console.warn('Could not save locally', e);
+      }
+
+      saveToSupabase(resultObj);
+
+      showScreen('result');
+    }
+
+    function handleAnswer(yes) {
+      const q = allQuestions[currentIndex];
+      const points = yes ? q.points : 0;
+      if (q.set === 1) {
+        scoreQ1 += points;
+      } else {
+        scoreQ2 += points;
+      }
+      currentIndex++;
+      if (currentIndex < allQuestions.length) {
+        updateQuestion();
+      } else {
+        progressFill.style.width = '100%';
+        finishQuiz();
+      }
+    }
+
+    startBtn.addEventListener('click', () => {
+      currentIndex = 0;
+      scoreQ1 = 0;
+      scoreQ2 = 0;
+      updateQuestion();
+      showScreen('quiz');
+    });
+
+    btnYes.addEventListener('click', () => handleAnswer(true));
+    btnNo.addEventListener('click', () => handleAnswer(false));
+
+    shareBtn.addEventListener('click', async () => {
+      const text = resultPhysical.textContent + " / " + resultEmotional.textContent + " – INTIMA Test";
+      if (navigator.share) {
+        try {
+          await navigator.share({ text });
+        } catch (e) {
+          console.warn(e);
+        }
+      } else if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(text);
+          alert("Result copied. You can paste it anywhere.");
+        } catch (e) {
+          alert("Could not copy automatically, but you can share manually.");
+        }
+      } else {
+        alert("Sharing not supported on this device, but you can read your result above.");
+      }
+    });
+
+    retakeLink.addEventListener('click', () => {
+      currentIndex = 0;
+      scoreQ1 = 0;
+      scoreQ2 = 0;
+      updateQuestion();
+      showScreen('quiz');
+    });
+
+    // 4) SUPABASE SAVE (browser-only via ESM)
+    const SUPABASE_URL = "https://elxzmmnnirhhfleaayoz.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVseHptbW5uaXJoaGZsZWFheW96Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU0MDM0ODMsImV4cCI6MjA4MDk3OTQ4M30.0ru5lzDRNb8ETb2SGh57OGdNShLTjw6zVXSDRlDHM-o";
+
+    async function saveToSupabase(resultObj) {
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_URL === "YOUR_SUPABASE_URL_HERE") {
+        console.warn("Supabase not configured, skipping save.");
+        return;
+      }
+      try {
+        const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const { error } = await supabase.from("results").insert([resultObj]);
+        if (error) console.error("Supabase insert error:", error);
+      } catch (e) {
+        console.error("Supabase client error:", e);
+      }
+    }
+
+    // Start on home screen
+    showScreen('home');
+  </script>
+</body>
+</html>
